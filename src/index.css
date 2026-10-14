@@ -1,0 +1,336 @@
+
+* {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  background-color: #fdfd96;
+  min-height: 100vh;
+  margin: auto;
+  color: black;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  text-align: center;
+}
+
+.header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 10vh;
+}
+
+.section {
+  min-height: 100vh;
+  padding: 20rem 1rem;
+}
+
+.section_p {
+  max-width: 700px;
+  margin: 0 auto;
+  margin-bottom: 20rem;
+  padding: 4rem 1rem;
+  transform: translateY(20px);
+  opacity: 0;
+  transition: 2s ease;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-size: 25px;
+}
+
+.section_p--visible {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Caja de música */
+
+#btn-menu {
+  position: fixed;
+  top: 16px;
+  right: 16px;
+  z-index: 1001;
+  width: 90px;
+  height: 90px;
+  padding: 0;
+  border: none;
+  background: transparent;
+  cursor: pointer;
+  transition: transform 0.2s ease, filter 0.2s ease;
+}
+
+#btn-menu img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transition: opacity 0.3s ease;
+}
+
+/* La segunda imagen empieza invisible */
+#btn-menu .img_hover {
+  opacity: 0;
+}
+
+/* Al pasar el cursor: aparece la 2ª imagen y se oculta la 1ª */
+#btn-menu:hover .img_hover,
+#btn-menu.activo .img_hover {
+  opacity: 1;
+}
+
+#btn-menu.activo .img_normal,
+#btn-menu:hover .img_normal {
+  opacity: 0;
+}
+
+#ventana {
+  position: fixed;
+  top: 120px;
+  right: 16px;
+  z-index: 1000;
+  width: 400px;
+  max-width: calc(100% - 32px);
+  background-color: #5a3d26;
+  background-size: cover;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+  transform-origin: top right;
+  transform: scale(0.85);
+  opacity: 0;
+  visibility: hidden;
+  transition: transform 0.2s ease, opacity 0.2s ease, visibility 0.2s;
+}
+
+#ventana.abierta {
+  transform: scale(1);
+  opacity: 1;
+  visibility: visible;
+}
+
+.titulo {
+  display: flex;
+  justify-content: center;
+  margin: 10px;
+  color: #fff;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.contenido {
+  padding: 16px;
+}
+
+.rejilla {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  padding-right: 20px;
+}
+
+.opcion {
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  position: relative;
+  color: #fff;
+  font-size: 13px;
+  transition: transform 0.15s, background 0.15s;
+}
+
+.opcion:hover {
+  transform: translateY(-2px);
+  z-index: 3; 
+}
+
+.opcion.sonando {
+  color: #fff;
+}
+
+.opcion.sonando .vinilo {
+  transform: translateX(45%);
+  animation: girar 3s linear infinite;
+}
+
+.opcion.sonando .portada {
+  transform: translateX(-8%);
+}
+
+@keyframes girar {
+  from { transform: translateX(45%) rotate(0deg); }
+  to   { transform: translateX(45%) rotate(360deg); }
+}
+
+/* Estado y controles */
+#estado {
+  text-align: center;
+  margin: 14px 0 8px;
+  font-size: 14px;
+  color: #ffffff;
+  min-height: 18px;
+}
+
+.controles {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.controles button {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+  background: #fff;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.controles input[type='range'] {
+  flex: 1;
+}
+
+.album {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1;
+}
+
+/* Portada */
+.portada {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 4px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  z-index: 2;
+  transition: transform 0.35s ease;
+}
+
+/* Vinilo dibujado con CSS */
+.vinilo {
+  position: absolute;
+  top: 4%;
+  left: 4%;
+  width: 92%;
+  height: 92%;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle, #d9a441 0 14%, #111 15% 17%, transparent 18%),
+    repeating-radial-gradient(circle, #1a1a1a 0 2px, #101010 3px 4px);
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+  z-index: 1;
+  transition: transform 0.35s ease;
+}
+
+.opcion:hover .vinilo {
+  transform: translateX(45%);
+}
+
+.opcion:hover .portada {
+  transform: translateX(-8%);
+}
+
+/* Fichas de canciones */
+
+.biblioteca {
+  max-width: 960px;
+  margin: 0 auto;
+  padding: 6rem 1rem;
+}
+
+.biblioteca h2 {
+  margin-bottom: 8px;
+}
+
+.biblioteca_intro {
+  margin-bottom: 32px;
+  color: #444;
+}
+
+.biblioteca_rejilla {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+  align-items: start;
+}
+
+.ficha {
+  display: flex;
+  gap: 14px;
+  padding: 14px;
+  background: rgba(255, 255, 255, 0.55);
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  text-align: left;
+  transition: transform 0.2s, background 0.2s;
+}
+
+.ficha:hover {
+  transform: translateY(-2px);
+}
+
+.ficha--abierta {
+  background: rgba(255, 255, 255, 0.85);
+}
+
+.ficha_portada {
+  width: 90px;
+  height: 90px;
+  object-fit: cover;
+  border-radius: 6px;
+  flex-shrink: 0;
+}
+
+.ficha_cuerpo {
+  flex: 1;
+  min-width: 0;
+}
+
+.ficha_cuerpo h3 {
+  font-size: 1rem;
+}
+
+.ficha_artista {
+  margin: 2px 0 10px;
+  color: #555;
+  font-size: 0.9rem;
+}
+
+.ficha_boton {
+  padding: 6px 12px;
+  border: none;
+  border-radius: 8px;
+  background: #4c078d;
+  color: #fff;
+  font-size: 0.8rem;
+  cursor: pointer;
+}
+
+.ficha_boton:hover {
+  background: rgb(50, 12, 94);
+}
+
+.ficha_datos {
+  margin-top: 12px;
+  font-size: 0.85rem;
+}
+
+.ficha_datos div {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 4px;
+}
+
+.ficha_datos dt {
+  font-weight: bold;
+}
+
+.ficha_datos dt::after {
+  content: ':';
+}
