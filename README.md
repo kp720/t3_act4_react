@@ -12,7 +12,7 @@ Mini aplicación hecha con **React + Vite** para la actividad *t3_act4_react*. E
 
 ## Captura general
 
-![Vista general de la aplicación](./docs/capturas/CapGeneral.png)
+![Vista general de la aplicación](./docs/capturas/capGeneral.png)
 
 ---
 
