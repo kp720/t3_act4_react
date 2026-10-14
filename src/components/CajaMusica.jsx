@@ -73,7 +73,7 @@ function CajaMusica() {
       >
         <div className="titulo">
           <span>
-            <strong>Music for my luv</strong>
+            <strong>Musica para disfrutar</strong>
           </span>
         </div>
 
